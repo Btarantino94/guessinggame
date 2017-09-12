@@ -4,8 +4,10 @@
 body {
   font-family: sans-serif;
   background-image: url(https://anxietyexit.com/wp-content/uploads/2016/03/Question-Mark-HD-Wallpaper14-1140x759.jpg);
-  background-repeat: no-repeat;
+ /* background-repeat: no-repeat;*/
+  text-align: center;
   color: #fff;
+ /* padding-right: 45%;*/
 }
 
 h1{
