@@ -4,7 +4,12 @@ function Begin(props) {
   return (
     <section id="begin">
       <h1>Start</h1>
-      <div><button onClick={props.standardStart}>Standard</button> Begin <button onClick={props.expertStart}>Expert</button></div>
+      <img src="http://images.wikia.com/batman/images/5/5e/VLpul.jpg"/>
+      <div>
+      		<button onClick={props.normalStart}>normal</button> 
+     	    
+      </div>​
+           <button onClick={props.hardStart}>hard</button>
     </section>
   );
 }

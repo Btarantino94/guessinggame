@@ -35,7 +35,7 @@ class App extends Component {
     this.handleReset = this.handleReset.bind(this);
   }
 
-  handleNewNumber(num) {
+  handleRandoNum(num) {
     const random = Math.floor(Math.random() * (num + 1));
     let game = Object.assign({}, this.state.game);
     game.Games.level = num === 10 ? 'normal' : 'hard';
@@ -80,10 +80,10 @@ class App extends Component {
     if(thisGuess === target) {
       game.Games.tryagain = true;
       if(this.state.game.Games.guesses < this.state.game.highScore[this.state.game.Games.level]) {
-        message = `New Highscore in only ${this.state.game.Games.guesses} guesses`;
+        message = `I don't believe it! How did you work that one out? New Highscore in only ${this.state.game.Games.guesses} guesses`;
         game.highScore["normal"] = this.state.game.Games.guesses;
       } else {
-        message = `You did it in ${this.state.game.Games.guesses} guesses`;
+        message = `I'm impressed. That was one of the more taxing ones. You did it in ${this.state.game.Games.guesses} guesses`;
       }
 
     } else if (thisGuess > target) {
@@ -106,8 +106,8 @@ class App extends Component {
         { !this.state.game.inProgress ? (
 
           <Begin
-            normalStart={()=>{ this.handleNewNumber(this.state.game.range.normal); }}
-            hardStart={()=>{ this.handleNewNumber(this.state.game.range.hard); }}
+            normalStart={()=>{ this.handleRandoNum(this.state.game.range.normal); }}
+            hardStart={()=>{ this.handleRandoNum(this.state.game.range.hard); }}
           />
 
         ) : (

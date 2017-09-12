@@ -5,18 +5,18 @@ function Content(props) {
   return (
     <section id="inprogress">
       <h1>Game On!</h1>
-      { props.gamesPlayed > 1 ? (
-      <p>This is your {ordinal(props.gamesPlayed)} game. Your bes score: {props.highScore} . You have {props.currentLevel} tries this level.</p>
+      { props.played > 1 ? (
+      <p>This is your {(props.played)} game. Your bet score: {props.highScore} . {props.currentLevel} tries this level.</p>
 
         ) : (
-        <p>Game number {ordinal(props.gamesPlayed)}!</p>
+        <p>Game number {(props.played)}!</p>
      )}
       <div>
-       <label htmlFor="guess">Guess a number: <input type="text" id="guess" onChange={props.handleChange} value={props.currentGuess} /></label>
+       <label htmlFor="guess">Number me this..Guess a number: <input type="text" id="guess" onChange={props.handleChange} value={props.Guess} /></label>
         <button onClick={props.handleGuess}>Submit</button>
       </div>
-      <p id="message">{props.currentMessage}</p>
-      { props.offerPlayAgain ? (
+      <p id="message">{props.Message}</p>
+      { props.tryagain ? (
         <button id="tryagain" onClick={props.handleReset}>Try again</button>
     ) : (
         <div>
