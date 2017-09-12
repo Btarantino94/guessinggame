@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
-import GameStart from './GameStart';
-import GamePlay from './GamePlay';
-import './App.css';
+import Begin from './Begin';
+import Content from './Content';
+import './index.css';
 
 const initState = {
   game: {
-    inProgress: false,
-    range: {
-      standard: 10,
-      expert: 100
+  inProgress: false,
+  range: {
+  normal: 10,
+  hard: 100
     },
-    highScore: {
-      standard: 100,
-      expert: 1000
+  highScore: {
+  normal: 100,
+  hard: 1000
     },
-    gamesPlayed: 0,
-    currentGame: {
-      currentLevel: 'standard',
-      targetNumber: 0,
-      guesses: 0,
-      currentGuess: '',
-      currentMessage: '',
-      offerPlayAgain: false
+  played: 0,
+  Games: {
+  level: 'normal',
+  target: 0,
+  guesses: 0,
+  Guess: '',
+  Message: '',
+  TryAgain: false
     }
   }
 };
@@ -38,10 +38,10 @@ class App extends Component {
   handleNewNumber(num) {
     const random = Math.floor(Math.random() * (num + 1));
     let game = Object.assign({}, this.state.game);
-    game.currentGame.currentLevel = num === 10 ? 'standard' : 'expert';
-    game.currentGame.targetNumber = random;
-    game.gamesPlayed++;
-    game.currentGame.guesses = 0;
+    game.Games.level = num === 10 ? 'normal' : 'hard';
+    game.Games.target = random;
+    game.Played++;
+    game.Games.guesses = 0;
     game.inProgress = true;
     this.setState({
       game: game
@@ -51,10 +51,10 @@ class App extends Component {
   handleReset(){
     let game = Object.assign({}, this.state.game);
     game.inProgress = false;
-    game.currentGame.guesses = 0;
-    game.currentGame.currentGuess = '';
-    game.currentGame.currentMessage = '';
-    game.currentGame.offerPlayAgain = false;
+    game.Games.guesses = 0;
+    game.Games.Guess = '';
+    game.Games.Message = '';
+    game.Games.tryagain = false;
     this.setState({
       game
     });
@@ -63,7 +63,7 @@ class App extends Component {
   handleChange(event) {
     const text = event.target.value;
     let game = Object.assign({}, this.state.game);
-    game.currentGame.currentGuess = text;
+    game.Games.Guess = text;
     this.setState({
       game: game
     });
@@ -72,27 +72,27 @@ class App extends Component {
   handleGuess() {
     // increase # of guesses
     let game = Object.assign({}, this.state.game);
-    game.currentGame.guesses++;
+    game.Games.guesses++;
 
     let message;
-    const thisGuess = parseInt(this.state.game.currentGame.currentGuess, 10);
-    const target = this.state.game.currentGame.targetNumber;
+    const thisGuess = parseInt(this.state.game.Games.Guess, 10);
+    const target = this.state.game.Games.target;
     if(thisGuess === target) {
-      game.currentGame.offerPlayAgain = true;
-      if(this.state.game.currentGame.guesses < this.state.game.highScore[this.state.game.currentGame.currentLevel]) {
-        message = `New Record Score! You won in ${this.state.game.currentGame.guesses}`;
-        game.highScore["standard"] = this.state.game.currentGame.guesses;
+      game.Games.tryagain = true;
+      if(this.state.game.Games.guesses < this.state.game.highScore[this.state.game.Games.level]) {
+        message = `New Highscore in only ${this.state.game.Games.guesses} guesses`;
+        game.highScore["normal"] = this.state.game.Games.guesses;
       } else {
-        message = `You won in ${this.state.game.currentGame.guesses}`;
+        message = `You did it in ${this.state.game.Games.guesses} guesses`;
       }
 
     } else if (thisGuess > target) {
-      message = `Your guess was too high`;
+      message = `woah thats high!`;
     } else {
-      message = `Your guess was too low`;
+      message = `wow...that low?`;
     }
-    game.currentGame.currentMessage=message;
-    game.currentGame.currentGuess='';
+    game.Games.Message=message;
+    game.Games.Guess='';
 
     this.setState({
       game: game
@@ -105,24 +105,24 @@ class App extends Component {
       <div id="container">
         { !this.state.game.inProgress ? (
 
-          <GameStart
-            standardStart={()=>{ this.handleNewNumber(this.state.game.range.standard); }}
-            expertStart={()=>{ this.handleNewNumber(this.state.game.range.expert); }}
+          <Begin
+            normalStart={()=>{ this.handleNewNumber(this.state.game.range.normal); }}
+            hardStart={()=>{ this.handleNewNumber(this.state.game.range.hard); }}
           />
 
         ) : (
 
-          <GamePlay
-            gamesPlayed={this.state.game.gamesPlayed}
-            highScore={this.state.game.highScore[this.state.game.currentGame.currentLevel]}
-            currentLevel={this.state.game.currentGame.currentLevel}
+          <Content
+            played={this.state.game.played}
+            highScore={this.state.game.highScore[this.state.game.Games.level]}
+            level={this.state.game.Games.level}
             handleChange={this.handleChange}
             handleGuess={this.handleGuess}
-            currentGuess={this.state.game.currentGame.currentGuess}
-            currentMessage={this.state.game.currentGame.currentMessage}
+            Guess={this.state.game.Games.Guess}
+            Message={this.state.game.Games.Message}
             handleReset={this.handleReset}
-            offerPlayAgain={this.state.game.currentGame.offerPlayAgain}
-            guessTotal={this.state.game.currentGame.guesses}
+            tryagain={this.state.game.Games.tryagain}
+            guessTotal={this.state.game.Games.guesses}
           />
         )}
       </div>
