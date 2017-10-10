@@ -6,7 +6,7 @@ function Content(props) {
     <section id="inprogress">
       <h1>Game On!</h1>
       { props.played > 1 ? (
-      <p>This is your {(props.played)} game. Your bet score: {props.highScore} . {props.currentLevel} tries this level.</p>
+      <p>This is your {(props.played)} game. Your best score: {props.highScore}. {props.currentLevel} tries this level.</p>
 
         ) : (
         <p>Game number {(props.played)}!</p>
